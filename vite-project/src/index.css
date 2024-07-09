@@ -11,7 +11,7 @@
     --background-color: white;
     --color: black;
     --adjust-border: -1px;
-  }
+}
   
   body[data-theme='dark'] {
     --main-blue: rgb(94, 145, 240);
@@ -19,11 +19,4 @@
     --background-color: black;
     --color: white;
     --adjust-border: -1px;
-  }
-  
-  body {
-    overflow-x: hidden;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+}
