@@ -1,9 +1,15 @@
+//react
 import React from "react"
+//layout
+import Layout from "./Layout"
+
 
 
 const App: React.FC = () => {
   return (
-    <div>App</div>
+    <Layout>
+      
+    </Layout>
   )
 }
 

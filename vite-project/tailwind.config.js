@@ -11,11 +11,10 @@ export default {
         'main-blue-active': 'var(--main-blue-active)',
         'bg-color': 'var(--background-color)',
         'main-color': 'var(--color)',
-        'adjust-border-y': 'var(--adjust-border-y)',
-        'adjust-border-x': 'var(--adjust-border-x)',
       }
     },
   },
   plugins: [],
 }
+
 

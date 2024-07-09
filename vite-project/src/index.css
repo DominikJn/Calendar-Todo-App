@@ -10,13 +10,11 @@
     --main-blue-active: rgb(60, 108, 196);
     --background-color: white;
     --color: black;
-    --adjust-border: -1px;
 }
   
-  body[data-theme='dark'] {
+body[data-theme='dark'] {
     --main-blue: rgb(94, 145, 240);
     --main-blue-active: rgb(60, 108, 196);
     --background-color: black;
     --color: white;
-    --adjust-border: -1px;
 }
