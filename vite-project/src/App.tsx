@@ -7,16 +7,16 @@ import { Routes, Route } from "react-router-dom"
 import CalendarPage from "./pages/calendar/CalendarPage"
 import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
+//utils
+import getDataFromLocalStorage from "./utils/local-storage/getDataFromLocalStorage"
 
 
-
-const userData = {
-  isLogged: true,
-}
 
 const App: React.FC = () => {
+  const userData = getDataFromLocalStorage('userData') || {}
+
   return (<>
-      {userData.isLogged
+      {userData?.isLogged
       ? 
         <Layout>
           <Routes>

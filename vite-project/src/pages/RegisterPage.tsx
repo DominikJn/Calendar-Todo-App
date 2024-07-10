@@ -5,6 +5,10 @@ import Input from '../components/forms/Input'
 import SubmitInput from '../components/forms/SubmitInput'
 //react hook form
 import { useForm } from 'react-hook-form'
+//utils
+import insertDataInLocalStorage from '../utils/local-storage/insertDataInLocalStorage'
+//axios
+import axios from 'axios'
 
 
 
@@ -26,11 +30,24 @@ const RegisterPage: React.FC = () => {
     const { 
         register,
         handleSubmit,
+        setError,
         formState: { isLoading }
     } = useForm<RegisterFormData>({ defaultValues: registerFormDefaultValues })
 
-    function onSubmit(data: RegisterFormData): void {
-        console.log(data)
+    function createUserId(): string {
+        return 'usr' + Date.now().toString(36) + Math.random().toString(36).substr(2)
+    }
+
+    async function onSubmit(data: RegisterFormData): Promise<void> {
+        try {
+            const response = await axios.post('http://localhost:3001/register', { ...data, userId: createUserId(), config: { theme: 'light' } })
+            if(response.status === 200) {
+                insertDataInLocalStorage('userData', { ...response.data, isLogged: true })
+                location.replace('/')
+            }
+        } catch(err: any) {
+            setError('root', { type: 'custom', message: err.response.data.message })
+        }
     }
 
     return (

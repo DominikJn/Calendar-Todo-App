@@ -5,6 +5,9 @@ import Input from '../components/forms/Input'
 import SubmitInput from '../components/forms/SubmitInput'
 //react hook form
 import { useForm } from 'react-hook-form'
+//axios
+import axios from 'axios'
+import insertDataInLocalStorage from '../utils/local-storage/insertDataInLocalStorage'
 
 
 
@@ -22,11 +25,20 @@ const LoginPage: React.FC = () => {
     const { 
         register,
         handleSubmit,
+        setError,
         formState: { isLoading }
     } = useForm<LoginFormData>({ defaultValues: loginFormDefaultValues })
 
-    function onSubmit(data: LoginFormData): void {
-        console.log(data)
+    async function onSubmit(data: LoginFormData): Promise<void> {
+        try {
+            const response = await axios.post('http://localhost:3001/login', data)
+            if(response.status === 200) {
+                insertDataInLocalStorage('userData', { ...response.data, isLogged: true })
+                location.replace('/')
+            }
+        } catch(err: any) {
+            setError('root', { type: 'custom', message: err.response.data.message })
+        }
     }
 
     return (
