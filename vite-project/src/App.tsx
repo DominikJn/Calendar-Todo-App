@@ -11,7 +11,7 @@ import RegisterPage from "./pages/RegisterPage"
 
 
 const userData = {
-  isLogged: false,
+  isLogged: true,
 }
 
 const App: React.FC = () => {
