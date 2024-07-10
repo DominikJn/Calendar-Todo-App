@@ -4,6 +4,8 @@ import Logo from './Logo'
 import Burger from './burger/Burger'
 import Navbar from './nav/Navbar'
 import ProfileInfo from './nav/ProifleInfo'
+import LogOutButton from './nav/LogOutButton'
+
 
 
 const HeaderPage: React.FC = () => {
@@ -15,6 +17,7 @@ const HeaderPage: React.FC = () => {
 
       <Navbar isNavbarOpen={isNavbarOpen}>
         <ProfileInfo />
+        <LogOutButton />
       </Navbar>
       
       <Logo />
