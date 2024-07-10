@@ -23,13 +23,13 @@ interface TaskDates {
 const CalendarPage: React.FC = () => {
   const userData: UserData = getDataFromLocalStorage('userData')
   const [tasks, setTasks] = useState<Task[]>([])
-  const { data } = useQuery({ 
-      queryKey: ['tasks'],
-      queryFn: async () => {
-        const data = await fetchTasksAdnTransformDatea(`http://localhost:3001/getTasksDisplayInfo/${userData.userId}`)
-        setTasks(data)
-        return data
-      }
+  const query = useQuery({ 
+    queryKey: ['tasks'],
+    queryFn: async () => {
+      const data = await fetchTasksAdnTransformDatea(`http://localhost:3001/getTasksDisplayInfo/${userData.userId}`)
+      setTasks(data)
+      return data
+    }
   })
 
   const taskDates: TaskDates = tasks.reduce((acc: TaskDates, task: Task) => {
@@ -39,22 +39,20 @@ const CalendarPage: React.FC = () => {
   }, {})
 
   function checkForDateInTasks(date: Date): Task | undefined {
-      return tasks.find((task: Task) => toLocalISOString(task.date) === toLocalISOString(date))
+    return tasks.find((task: Task) => toLocalISOString(task.date) === toLocalISOString(date))
   }
 
   function handleTileContent(date: Date): React.ReactElement {
     const taskCount = taskDates[formatDDMMYYYY(date)] || 0
     if(checkForDateInTasks(date)) {
-        for(let task of tasks) {
-            if(toLocalISOString(task.date) === toLocalISOString(date)) {
-                return (
-                    <>
-                        <p className='tile-title'>{task.title}</p>
-                        {taskCount > 1 && <p className='more'>+{taskCount-1} more...</p>}
-                    </>
-                )
-            }
+      for(let task of tasks) {
+        if(toLocalISOString(task.date) === toLocalISOString(date)) {
+          return (<>
+            <p className='tile-title'>{task.title}</p>
+            {taskCount > 1 && <p className='more'>+{taskCount-1} more...</p>}
+          </>)
         }
+      }
     }
     return <></>
   }
@@ -62,6 +60,11 @@ const CalendarPage: React.FC = () => {
   function handleTileClassName(date: Date): string {
     return checkForDateInTasks(date) ? 'highlight' : '' 
   }
+
+
+  
+  if(query.isLoading) return <div>Loading...</div>
+  if(query.isError) return <div>{query.error.message}</div>
 
   return (
     <Calendar
