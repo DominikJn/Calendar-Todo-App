@@ -3,11 +3,13 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 //utils
 import getDataFromLocalStorage from "../../utils/local-storage/getDataFromLocalStorage";
+//types
+import { UserData } from "../../types/UserData";
 
 
 
 const ProfileInfo: React.FC = () => {
-  const userData = getDataFromLocalStorage('userData')
+  const userData: UserData = getDataFromLocalStorage('userData')
 
   return (
     <div className="flex flex-wrap items-center gap-2 overflow-hidden">

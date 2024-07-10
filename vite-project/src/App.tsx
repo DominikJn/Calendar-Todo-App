@@ -9,11 +9,13 @@ import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 //utils
 import getDataFromLocalStorage from "./utils/local-storage/getDataFromLocalStorage"
+//types
+import { UserData } from "./types/UserData"
 
 
 
 const App: React.FC = () => {
-  const userData = getDataFromLocalStorage('userData') || {}
+  const userData: UserData = getDataFromLocalStorage('userData') || {}
 
   return (<>
       {userData?.isLogged
