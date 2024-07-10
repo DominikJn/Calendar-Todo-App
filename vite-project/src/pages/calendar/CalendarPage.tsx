@@ -14,6 +14,9 @@ import { UserData } from '../../types/UserData';
 import { useQuery } from '@tanstack/react-query';
 //types
 import { Task } from '../../types/Task';
+//components
+import LoadingScreen from '../../components/LoadingScreen';
+
 
 
 interface TaskDates {
@@ -57,13 +60,13 @@ const CalendarPage: React.FC = () => {
     return <></>
   }
 
-  function handleTileClassName(date: Date): string {
+  function highlightTasks(date: Date): string {
     return checkForDateInTasks(date) ? 'highlight' : '' 
   }
 
 
-  
-  if(query.isLoading) return <div>Loading...</div>
+
+  if(query.isLoading) return <LoadingScreen />
   if(query.isError) return <div>{query.error.message}</div>
 
   return (
@@ -71,7 +74,7 @@ const CalendarPage: React.FC = () => {
       view='month'
       locale='en-EN'
       tileContent={({ date }) => handleTileContent(date)}
-      tileClassName={({ date }) => handleTileClassName(date)}
+      tileClassName={({ date }) => highlightTasks(date)}
     />
   )
 }
