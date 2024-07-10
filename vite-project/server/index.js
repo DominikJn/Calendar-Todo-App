@@ -23,10 +23,10 @@ app.post('/login', (req, res) => {
             if(user.password === req.body.password) {
                 return res.json({ username: user.username, userId: user.userId, config: user.config  })
             } else {
-                return res.status(400).json({ message: 'invalid email or password!' })
+                return res.status(400).json({ message: 'Invalid email or password!' })
             }
         } else {
-            return res.status(400).json({ message: 'invalid email or password!' })
+            return res.status(400).json({ message: 'Invalid email or password!' })
         }
     })
 })

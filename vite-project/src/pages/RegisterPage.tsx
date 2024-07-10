@@ -3,6 +3,8 @@ import React from 'react'
 import Form from '../components/forms/Form'
 import Input from '../components/forms/Input'
 import SubmitInput from '../components/forms/SubmitInput'
+import HyperLink from '../components/HyperLink'
+import ErrorMessage from '../components/ErrorMessage'
 //react hook form
 import { useForm } from 'react-hook-form'
 //utils
@@ -31,7 +33,7 @@ const RegisterPage: React.FC = () => {
         register,
         handleSubmit,
         setError,
-        formState: { isLoading }
+        formState: { isLoading, errors }
     } = useForm<RegisterFormData>({ defaultValues: registerFormDefaultValues })
 
     function createUserId(): string {
@@ -80,6 +82,8 @@ const RegisterPage: React.FC = () => {
                         placeholder="Password..."
                     />
                     <SubmitInput isLoading={isLoading} value="Register" />
+                    <HyperLink linkPath="/login" innerText="Already have an account?" />
+                    <ErrorMessage errors={errors} />
                 </Form>
             </div>
         </div>
