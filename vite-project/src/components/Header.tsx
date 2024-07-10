@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 //components
 import Logo from './Logo'
 import Burger from './burger/Burger'
-import Navbar from './Navbar'
+import Navbar from './nav/Navbar'
+import ProfileInfo from './nav/ProifleInfo'
 
 
 const HeaderPage: React.FC = () => {
@@ -13,7 +14,7 @@ const HeaderPage: React.FC = () => {
       <Burger isNavbarOpen={isNavbarOpen} setNavbarOpen={setNavbarOpen} />
 
       <Navbar isNavbarOpen={isNavbarOpen}>
-        <h2>Navbar</h2>
+        <ProfileInfo />
       </Navbar>
       
       <Logo />
