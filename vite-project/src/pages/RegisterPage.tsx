@@ -79,7 +79,7 @@ const RegisterPage: React.FC = () => {
                         required 
                         placeholder="Password..."
                     />
-                    <SubmitInput isLoading={isLoading} value="Login" />
+                    <SubmitInput isLoading={isLoading} value="Register" />
                 </Form>
             </div>
         </div>
