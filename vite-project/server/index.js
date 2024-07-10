@@ -5,6 +5,7 @@ const cors = require('cors')
 require('dotenv').config()
 //models
 const UserModel = require('./models/Users')
+const TaskModel = require('./models/Tasks')
 
 
 
@@ -43,6 +44,14 @@ app.post('/register', (req, res) => {
             .catch(err => res.json(err))
         }
     })
+})
+
+//get titles and dates of Tasks to be displayed in calendar tile
+app.get('/getTasksDisplayInfo/:userId', (req, res) => {
+    const userId = req.params.userId
+    TaskModel.find({ 'userId': userId }, { _id: 0, title: 1, date: 1 })
+    .then(tasks => res.json(tasks))
+    .catch(err => res.json(err))
 })
 
 
