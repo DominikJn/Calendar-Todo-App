@@ -54,6 +54,13 @@ app.get('/getTasksDisplayInfo/:userId', (req, res) => {
     .catch(err => res.json(err))
 })
 
+//create new Task
+app.post('/createTask', (req, res) => {
+    TaskModel.create(req.body)
+    .then(tasks => res.json(tasks))
+    .catch(err => res.json(err))
+})
+
 
 
 app.listen(3001, () => console.log('server is running'))

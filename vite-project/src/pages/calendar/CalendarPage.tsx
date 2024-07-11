@@ -27,9 +27,8 @@ interface TaskDates {
 
 const CalendarPage: React.FC = () => {
   const userData: UserData = getDataFromLocalStorage('userData')
-  const { toggleModal } = useAppContext()
+  const { toggleModal, selectedDate, setSelectedDate } = useAppContext()
   const [tasks, setTasks] = useState<Task[]>([])
-  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const query = useQuery({ 
     queryKey: ['tasks'],
     queryFn: async () => {

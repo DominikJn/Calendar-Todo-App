@@ -1,33 +1,39 @@
-import React, { useState, createContext, useContext } from 'react'
+import React, { useState, createContext, useContext } from "react";
 //modal components
-import AddTaskForm from '../components/modals/AddTaskForm'
-
+import TaskCreationForm from "../components/modals/TaskCreationForm";
 
 interface ContextProps {
-    children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const AppContext = createContext({})
+const AppContext = createContext({});
 
 const AppContextProvider: React.FC<ContextProps> = ({ children }) => {
-    //modal
-    const [isModalOpen, setModalOpen] = useState<boolean>(false)
-    const toggleModal = (): void => setModalOpen(!isModalOpen)
+  //modal
+  const [modalContent, setModalContent] = useState<JSX.Element>(
+    <TaskCreationForm />
+  );
+  const [isModalOpen, setModalOpen] = useState<boolean>(false);
+  const toggleModal = (): void => setModalOpen(!isModalOpen);
+  //selected date
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
-    const [modalContent, setModalContent] = useState<JSX.Element>(<AddTaskForm />)
+  return (
+    <AppContext.Provider
+      value={{
+        isModalOpen,
+        toggleModal,
+        modalContent,
+        setModalContent,
+        selectedDate,
+        setSelectedDate,
+      }}
+    >
+      {children}
+    </AppContext.Provider>
+  );
+};
 
+export default AppContextProvider;
 
-
-    return (
-        <AppContext.Provider value={{ 
-            isModalOpen, toggleModal, 
-            modalContent, setModalContent,
-        }}>
-            {children}
-        </AppContext.Provider>
-    )
-}
-
-export default AppContextProvider
-
-export const useAppContext = () => useContext(AppContext)
+export const useAppContext = () => useContext(AppContext);
