@@ -1,4 +1,3 @@
-//react
 import React from "react";
 //utils
 import formatDDMMYYYY from "../utils/formatDDMMYYYY";
@@ -6,10 +5,12 @@ import formatDDMMYYYY from "../utils/formatDDMMYYYY";
 import { Task } from "../types/Task";
 //react icons
 import { FaTrash } from "react-icons/fa";
+import { MdEdit } from "react-icons/md";
 //context
 import { useAppContext } from "../context/AppContextProvider";
 //components
 import ConfirmDelete from "./modals/ConfirmDelete";
+import TaskEditionForm from "./modals/TaskEditionForm";
 
 interface TaskItemProps {
   task: Task;
@@ -17,10 +18,17 @@ interface TaskItemProps {
 
 const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   const { toggleModal, setModalContent } = useAppContext();
+
   function showDeleteModal(): void {
     toggleModal();
     setModalContent(<ConfirmDelete taskId={task.taskId} />);
   }
+
+  function showEditModal(): void {
+    toggleModal()
+    setModalContent(<TaskEditionForm task={task} />)
+  }
+
   return (
     <div className="w-3/5 m-1 border-solid border p-6 flex">
       <div className="flex-1 break-all">
@@ -36,6 +44,12 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
           onClick={showDeleteModal}
         >
           <FaTrash />
+        </button>
+        <button
+          className="text-4xl hover:text-red-600"
+          onClick={showEditModal}
+        >
+          <MdEdit />
         </button>
       </div>
     </div>

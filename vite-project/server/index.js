@@ -61,6 +61,14 @@ app.post('/createTask', (req, res) => {
     .catch(err => res.json(err))
 })
 
+//edit Task
+app.put('/editTask/:taskId', (req, res) => {
+    const taskId = req.params.taskId
+    TaskModel.updateOne({ 'taskId': taskId }, req.body)
+    .then(tasks => res.json(tasks))
+    .catch(err => res.json(err))
+})
+
 //delete Task
 app.delete('/deleteTask/:taskId', (req, res) => {
     const taskId = req.params.taskId
