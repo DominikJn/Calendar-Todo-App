@@ -1,43 +1,41 @@
-import React from "react"
+import React from "react";
 //layout
-import Layout from "./Layout"
+import Layout from "./Layout";
 //react-router
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route } from "react-router-dom";
 //pages
-import CalendarPage from "./pages/calendar/CalendarPage"
-import LoginPage from "./pages/LoginPage"
-import RegisterPage from "./pages/RegisterPage"
+import CalendarPage from "./pages/calendar/CalendarPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 //utils
-import getDataFromLocalStorage from "./utils/local-storage/getDataFromLocalStorage"
+import getDataFromLocalStorage from "./utils/local-storage/getDataFromLocalStorage";
 //types
-import { UserData } from "./types/UserData"
+import { UserData } from "./types/UserData";
 //context
-import AppContextProvider from "./context/AppContextProvider"
-
+import AppContextProvider from "./context/AppContextProvider";
 
 const App: React.FC = () => {
-  const userData: UserData = getDataFromLocalStorage('userData') || {}
+  const userData: UserData = getDataFromLocalStorage("userData") || {};
 
   return (
-      <AppContextProvider>
-        {userData?.isLogged
-          ? 
-            <Layout>
-              <Routes>
-                <Route path="/" element={<CalendarPage />} />
-                <Route path="/login" element={<CalendarPage />} />
-                <Route path="/register" element={<CalendarPage />} />
-              </Routes>
-            </Layout>
-          : 
-            <Routes>
-              <Route path="/" element={<LoginPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/register" element={<RegisterPage />} />
-            </Routes>
-        }
-      </AppContextProvider>
-  )
-}
+    <AppContextProvider>
+      {userData?.isLogged ? (
+        <Layout>
+          <Routes>
+            <Route path="/" element={<CalendarPage />} />
+            <Route path="/login" element={<CalendarPage />} />
+            <Route path="/register" element={<CalendarPage />} />
+          </Routes>
+        </Layout>
+      ) : (
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Routes>
+      )}
+    </AppContextProvider>
+  );
+};
 
-export default App
+export default App;

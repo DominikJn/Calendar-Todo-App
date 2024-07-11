@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+  darkMode: 'class',
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -7,10 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'main-blue': 'var(--main-blue)',
-        'main-blue-active': 'var(--main-blue-active)',
-        'bg-color': 'var(--background-color)',
-        'main-color': 'var(--color)',
+        'blue': 'rgb(94, 145, 240)',
+        'blue-active': 'rgb(60, 108, 196)',
       }
     },
   },

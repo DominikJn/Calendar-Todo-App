@@ -2,19 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-
-
-:root {
-    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-    --main-blue: rgb(94, 145, 240);
-    --main-blue-active: rgb(60, 108, 196);
-    --background-color: white;
-    --color: black;
-}
-  
-body[data-theme='dark'] {
-    --main-blue: rgb(94, 145, 240);
-    --main-blue-active: rgb(60, 108, 196);
-    --background-color: black;
-    --color: white;
-}

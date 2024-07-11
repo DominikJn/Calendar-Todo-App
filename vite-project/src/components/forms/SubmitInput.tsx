@@ -1,21 +1,19 @@
-import React from 'react'
-
-
+import React from "react";
 
 interface SubmitProps {
-    isLoading: boolean,
-    value: string,
+  isLoading: boolean;
+  value: string;
 }
 
 const SubmitInput: React.FC<SubmitProps> = ({ isLoading, value }) => {
   return (
     <input
-        type="submit"
-        value={value}
-        disabled={isLoading && true}
-        className="py-2.5 px-5 border-solid border border-main-blue rounded text-xl text-white bg-main-blue hover:cursor-pointer active:bg-main-blue-active"
+      type="submit"
+      value={value}
+      disabled={isLoading && true}
+      className="py-3 px-6 border-solid border border-blue rounded text-xl text-white bg-blue hover:cursor-pointer active:bg-blue-active"
     />
-  )
-}
+  );
+};
 
-export default SubmitInput
+export default SubmitInput;
