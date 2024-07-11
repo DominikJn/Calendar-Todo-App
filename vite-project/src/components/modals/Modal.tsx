@@ -24,9 +24,9 @@ const Modal: React.FC = () => {
     <dialog
       ref={modalRef}
       className="
-            w-1/2 h-fit
-            bg-bg-color text-main-color p-4 text-center
-            border-solid border border-main-color rounded-xl
+          dark:bg-black dark:text-white
+            w-1/2 h-fit p-4 text-center
+            border-solid rounded-xl
         "
     >
       <div className="h-full flex flex-col justify-between">

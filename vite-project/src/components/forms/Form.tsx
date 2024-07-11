@@ -10,7 +10,7 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ handleSubmit, onSubmit, children }) => {
   return (
     <form
-      className="border-solid border rounded-2xl flex flex-col items-center gap-5 py-10 px-5 mt-5 w-full"
+      className="border-solid border rounded-2xl flex flex-col items-center gap-5 py-4 px-3 mt-5 w-full"
       onSubmit={handleSubmit((data) => onSubmit(data))}
     >
       {children}
