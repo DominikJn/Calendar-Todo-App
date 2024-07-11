@@ -61,6 +61,14 @@ app.post('/createTask', (req, res) => {
     .catch(err => res.json(err))
 })
 
+//delete Task
+app.delete('/deleteTask/:taskId', (req, res) => {
+    const taskId = req.params.taskId
+    TaskModel.deleteOne({ 'taskId': taskId })
+    .then(() => res.status(200).json({  message: 'Task successfuly deleted' }))
+    .catch(err => res.json(err))
+})
+
 //get user tasks
 app.get('/getTasks/:userId/:date', (req, res) => {
     const userId = req.params.userId
