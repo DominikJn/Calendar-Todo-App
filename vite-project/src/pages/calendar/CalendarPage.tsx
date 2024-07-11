@@ -16,6 +16,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Task } from '../../types/Task';
 //components
 import LoadingScreen from '../../components/LoadingScreen';
+//context
+import { useAppContext } from '../../context/AppContextProvider';
 
 
 
@@ -25,7 +27,9 @@ interface TaskDates {
 
 const CalendarPage: React.FC = () => {
   const userData: UserData = getDataFromLocalStorage('userData')
+  const { toggleModal } = useAppContext()
   const [tasks, setTasks] = useState<Task[]>([])
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date())
   const query = useQuery({ 
     queryKey: ['tasks'],
     queryFn: async () => {
@@ -45,6 +49,11 @@ const CalendarPage: React.FC = () => {
     return tasks.find((task: Task) => toLocalISOString(task.date) === toLocalISOString(date))
   }
 
+  function handlePlusClick(date: Date): void {
+    toggleModal()
+    setSelectedDate(date)
+  }
+
   function handleTileContent(date: Date): React.ReactElement {
     const taskCount = taskDates[formatDDMMYYYY(date)] || 0
     if(checkForDateInTasks(date)) {
@@ -53,11 +62,12 @@ const CalendarPage: React.FC = () => {
           return (<>
             <p className='tile-title'>{task.title}</p>
             {taskCount > 1 && <p className='more'>+{taskCount-1} more...</p>}
+            <div className='show-modal' onClick={()=>handlePlusClick(date)}>+</div>
           </>)
         }
       }
     }
-    return <></>
+    return <div className='show-modal' onClick={()=>handlePlusClick(date)}>+</div>
   }
 
   function highlightTasks(date: Date): string {
