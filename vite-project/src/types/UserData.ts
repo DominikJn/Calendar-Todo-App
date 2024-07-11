@@ -1,5 +1,5 @@
 type Config = {
-    theme: string,
+    isDarkMode: boolean,
 }
 
 export type UserData = {

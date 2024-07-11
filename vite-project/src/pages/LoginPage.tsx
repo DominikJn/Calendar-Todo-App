@@ -36,6 +36,7 @@ const LoginPage: React.FC = () => {
             const response = await axios.post('http://localhost:3001/login', data)
             if(response.status === 200) {
                 insertDataInLocalStorage('userData', { ...response.data, isLogged: true })
+                insertDataInLocalStorage('isDarkMode', response.data.config.isDarkMode)
                 location.replace('/')
             }
         } catch(err: any) {
