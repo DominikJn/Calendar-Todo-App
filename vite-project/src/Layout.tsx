@@ -9,7 +9,7 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="bg-white dark:bg-black text-black dark:text-white h-screen w-screen">
+    <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen w-full">
       <Header />
       {children}
       <Modal />

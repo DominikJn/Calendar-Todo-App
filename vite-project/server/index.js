@@ -61,6 +61,15 @@ app.post('/createTask', (req, res) => {
     .catch(err => res.json(err))
 })
 
+//get user tasks
+app.get('/getTasks/:userId/:date', (req, res) => {
+    const userId = req.params.userId
+    const dateToMatch = req.params.date.substring(0,10)
+    TaskModel.find({ 'userId': userId, 'date': { $regex: new RegExp(`^${dateToMatch}`) } }, { _id: 0 }).sort({ time: 1 })
+    .then(tasks => res.json(tasks))
+    .catch(err => res.json(err))
+})
+
 
 
 app.listen(3001, () => console.log('server is running'))
