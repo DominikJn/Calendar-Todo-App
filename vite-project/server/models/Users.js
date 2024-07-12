@@ -6,7 +6,7 @@ const UserSchema = new mongoose.Schema({
     password: String,
     userId: String,
     config: {
-        theme: String,
+        isDarkMode: Boolean,
     }
 })
 

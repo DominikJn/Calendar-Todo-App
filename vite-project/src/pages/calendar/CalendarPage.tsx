@@ -100,7 +100,6 @@ const CalendarPage: React.FC = () => {
     if(checkForDateInTasks(date) && isExpired) return "highlight expired"
     else if(checkForDateInTasks(date)) return "highlight"
     else return ''
-    // return checkForDateInTasks(date) && isExpired ? "highlight expired" : "";
   }
 
   if (query.isLoading) return <LoadingScreen />;

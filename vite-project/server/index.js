@@ -86,6 +86,15 @@ app.get('/getTasks/:userId/:date', (req, res) => {
     .catch(err => res.json(err))
 })
 
+//update Theme in User config
+app.patch('/updateTheme/:userId', (req, res) => {
+    const userId = req.params.userId
+    const isDarkMode = req.body.isDarkMode
+    UserModel.updateOne({ 'userId': userId }, { $set: { config: { 'isDarkMode': isDarkMode } } })
+    .then(result => res.status(200).json(result))
+    .catch(err => res.json(err))
+})
+
 
 
 app.listen(3001, () => console.log('server is running'))
