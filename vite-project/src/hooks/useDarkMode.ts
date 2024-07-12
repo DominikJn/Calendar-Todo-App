@@ -18,7 +18,7 @@ const useDarkMode = () => {
   useEffect(() => {
     axios.patch(`http://localhost:3001/updateTheme/${userData.userId}`, {
       isDarkMode: isDarkMode,
-    }).then(response => console.log(response.data))
+    });
     const bodyClass = document.body.classList;
     isDarkMode ? bodyClass.add("dark") : bodyClass.remove("dark");
   }, [isDarkMode]);
