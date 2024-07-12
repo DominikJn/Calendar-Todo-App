@@ -20,7 +20,7 @@ import TextArea from "../forms/TextArea";
 import SubmitInput from "../forms/SubmitInput";
 import ErrorMessage from "../ErrorMessage";
 
-interface AddTaskFormData {
+interface TaskCreationFormData {
   title: string;
   description: string;
   date: Date | string;
@@ -37,7 +37,7 @@ const AddTaskForm: React.FC = () => {
     setValue,
     reset,
     formState: { isLoading, errors },
-  } = useForm<AddTaskFormData>({
+  } = useForm<TaskCreationFormData>({
     defaultValues: {
       title: "",
       description: "",
@@ -50,7 +50,7 @@ const AddTaskForm: React.FC = () => {
 
   const queryClient = useQueryClient();
   const AddTaskmutation = useMutation({
-    mutationFn: async (data: AddTaskFormData) => {
+    mutationFn: async (data: TaskCreationFormData) => {
       try {
         const response = await axios.post("http://localhost:3001/createTask", {
           ...data,
@@ -75,7 +75,7 @@ const AddTaskForm: React.FC = () => {
     );
   }
 
-  function onSubmit(data: AddTaskFormData): void {
+  function onSubmit(data: TaskCreationFormData): void {
     if (data.title) {
       AddTaskmutation.mutateAsync(data);
       toggleModal();
