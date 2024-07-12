@@ -8,6 +8,7 @@ import getDataFromLocalStorage from "../../utils/local-storage/getDataFromLocalS
 import fetchTasksAdnTransformDates from "../../utils/fetchTasksAndTransformDates";
 import formatDDMMYYYY from "../../utils/formatDDMMYYYY";
 import toLocalISOString from "../../utils/toLocalISOString";
+import { checkIfTaskExpired, checkIfTaskExpiringToday } from "../../utils/checkIfTaskExpired";
 //types
 import { UserData } from "../../types/UserData";
 //tanstack query
@@ -27,7 +28,7 @@ interface TaskDates {
 
 const CalendarPage: React.FC = () => {
   const userData: UserData = getDataFromLocalStorage("userData");
-  const { toggleModal, selectedDate, setSelectedDate } = useAppContext();
+  const { toggleModal, setSelectedDate } = useAppContext();
   const [tasks, setTasks] = useState<Task[]>([]);
   const query = useQuery({
     queryKey: ["tasks"],
@@ -95,7 +96,11 @@ const CalendarPage: React.FC = () => {
   }
 
   function highlightTasks(date: Date): string {
-    return checkForDateInTasks(date) ? "highlight" : "";
+    const isExpired = checkIfTaskExpired(date)
+    if(checkForDateInTasks(date) && isExpired) return "highlight expired"
+    else if(checkForDateInTasks(date)) return "highlight"
+    else return ''
+    // return checkForDateInTasks(date) && isExpired ? "highlight expired" : "";
   }
 
   if (query.isLoading) return <LoadingScreen />;

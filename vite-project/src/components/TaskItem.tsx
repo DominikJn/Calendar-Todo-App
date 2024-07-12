@@ -1,6 +1,4 @@
 import React from "react";
-//utils
-import formatDDMMYYYY from "../utils/formatDDMMYYYY";
 //types
 import { Task } from "../types/Task";
 //react icons
@@ -11,6 +9,7 @@ import { useAppContext } from "../context/AppContextProvider";
 //components
 import ConfirmDelete from "./modals/ConfirmDelete";
 import TaskEditionForm from "./modals/TaskEditionForm";
+import DisplayTaskItemDate from "./DisplayTaskItemDate";
 
 interface TaskItemProps {
   task: Task;
@@ -25,17 +24,15 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   }
 
   function showEditModal(): void {
-    toggleModal()
-    setModalContent(<TaskEditionForm task={task} />)
+    toggleModal();
+    setModalContent(<TaskEditionForm task={task} />);
   }
 
   return (
     <div className="w-3/5 m-1 border-solid border p-6 flex">
       <div className="flex-1 break-all">
         <h3 className="text-blue text-5xl font-bold">{task.title}</h3>
-        <span className="text-gray-500">
-          {formatDDMMYYYY(new Date(task.date))} {task.time}
-        </span>
+        <DisplayTaskItemDate date={task.date} time={task.time} />
         <p className="text-3xl">{task.description}</p>
       </div>
       <div className="flex flex-col justify-between p-1">
@@ -45,10 +42,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
         >
           <FaTrash />
         </button>
-        <button
-          className="text-4xl hover:text-red-600"
-          onClick={showEditModal}
-        >
+        <button className="text-4xl hover:text-red-600" onClick={showEditModal}>
           <MdEdit />
         </button>
       </div>
