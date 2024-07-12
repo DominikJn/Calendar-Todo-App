@@ -11,6 +11,7 @@ import fetchTasksAdnTransformDates from "../utils/fetchTasksAndTransformDates";
 import { useQuery } from "@tanstack/react-query";
 //components
 import TaskItem from "../components/TaskItem";
+import TaskCreationButton from "../components/TaskCreationButton";
 
 const TasksDisplayPage: React.FC = () => {
   const params = useParams();
@@ -31,6 +32,7 @@ const TasksDisplayPage: React.FC = () => {
 
   return (
     <div className="mt-40 flex flex-col items-center">
+      <TaskCreationButton date={new Date(params.date)} />
       {data?.map((task: Task, index: number) => (
         <TaskItem task={task} key={index} />
       ))}
