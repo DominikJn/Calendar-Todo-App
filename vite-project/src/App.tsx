@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   return (
     <AppContextProvider>
-      {userData?.isLogged ? (
+      {'name' in userData ? (
         <Layout>
           <Routes>
             <Route path="/" element={<CalendarPage />} />
