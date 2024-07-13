@@ -4,13 +4,10 @@ import Calendar from "react-calendar";
 //css
 import "./CalendarPage.css";
 //utils
-import getDataFromLocalStorage from "../../utils/local-storage/getDataFromLocalStorage";
 import fetchTasksAdnTransformDates from "../../utils/fetchTasksAndTransformDates";
 import formatDDMMYYYY from "../../utils/formatDDMMYYYY";
 import toLocalISOString from "../../utils/toLocalISOString";
-import { checkIfTaskExpired, checkIfTaskExpiringToday } from "../../utils/checkIfTaskExpired";
-//types
-import { UserData } from "../../types/UserData";
+import { checkIfTaskExpired } from "../../utils/checkIfTaskExpired";
 //tanstack query
 import { useQuery } from "@tanstack/react-query";
 //types
@@ -21,21 +18,21 @@ import LoadingScreen from "../../components/LoadingScreen";
 import { useAppContext } from "../../context/AppContextProvider";
 //react router
 import { useNavigate } from "react-router-dom";
+//utils
+import getDataFromLocalStorage from "../../utils/local-storage/getDataFromLocalStorage";
 
 interface TaskDates {
   [key: string]: number;
 }
 
 const CalendarPage: React.FC = () => {
-  const userData: UserData = getDataFromLocalStorage("userData");
+  const userData = getDataFromLocalStorage('userData')
   const { toggleModal, setSelectedDate } = useAppContext();
   const [tasks, setTasks] = useState<Task[]>([]);
   const query = useQuery({
     queryKey: ["tasks"],
     queryFn: async () => {
-      const data = await fetchTasksAdnTransformDates(
-        `http://localhost:3001/getTasksDisplayInfo/${userData.userId}`
-      );
+      const data = await fetchTasksAdnTransformDates('tasks/getTasksHeaderInfo');
       setTasks(data);
       return data;
     },
@@ -90,7 +87,7 @@ const CalendarPage: React.FC = () => {
     e: MouseEvent<HTMLButtonElement, MouseEvent>
   ): void {
     if (!e.target.classList.contains("show-modal")) {
-      const date = toLocalISOString(value);
+      const date = value;
       navigate(`/tasks/${date}`);
     }
   }

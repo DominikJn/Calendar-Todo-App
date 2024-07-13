@@ -1,24 +1,17 @@
 import { useEffect } from "react";
 //other hooks
 import { useLocalStorage } from "@uidotdev/usehooks";
-//axios
-import axios from "axios";
-//types
-import { UserData } from "../types/UserData";
 //utils
-import getDataFromLocalStorage from "../utils/local-storage/getDataFromLocalStorage";
+import api from "../utils/api";
 
 const useDarkMode = () => {
-  const userData: UserData = getDataFromLocalStorage("userData");
   const [isDarkMode, setDarkMode] = useLocalStorage<boolean>(
     "isDarkMode",
     false
   );
 
   useEffect(() => {
-    axios.patch(`http://localhost:3001/updateTheme/${userData.userId}`, {
-      isDarkMode: isDarkMode,
-    });
+    api.patch(`users/profile/theme`, { isDarkMode: isDarkMode });
     const bodyClass = document.body.classList;
     isDarkMode ? bodyClass.add("dark") : bodyClass.remove("dark");
   }, [isDarkMode]);
