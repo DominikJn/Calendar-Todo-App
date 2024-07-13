@@ -20,11 +20,12 @@ const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
 
   function showDeleteModal(): void {
     toggleModal();
-    setModalContent(<ConfirmDelete taskId={task.taskId} />);
+    setModalContent(<ConfirmDelete taskId={task._id} />);
   }
 
   function showEditModal(): void {
     toggleModal();
+    console.log(task)
     setModalContent(<TaskEditionForm task={task} />);
   }
 

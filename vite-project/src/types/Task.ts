@@ -3,5 +3,5 @@ export type Task = {
     description?: string,
     date: Date,
     time: string,
-    taskId: string,
+    _id: string,
 }
