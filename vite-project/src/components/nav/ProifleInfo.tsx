@@ -12,7 +12,7 @@ const ProfileInfo: React.FC = () => {
   return (
     <div className="flex flex-wrap items-center gap-2 overflow-hidden">
       <CgProfile size="50px" color="rgb(94, 145, 240)" />
-      <h2 className="text-xl font-bold">{userData.username}</h2>
+      <h2 className="text-xl font-bold">{userData.name}</h2>
     </div>
   );
 };
