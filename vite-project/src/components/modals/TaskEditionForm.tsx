@@ -1,6 +1,4 @@
 import React from "react";
-//axios
-import axios from "axios";
 //components
 import Form from "../forms/Form";
 import Input from "../forms/Input";
@@ -13,7 +11,9 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 //context
 import { useAppContext } from "../../context/AppContextProvider";
-//types
+//utils
+import api from "../../utils/api";
+//types 
 import { Task } from "../../types/Task";
 
 interface TaskEditionFormProps {
@@ -22,21 +22,35 @@ interface TaskEditionFormProps {
 
 interface TaskEditionFormData {
   title: string;
-  description: string;
+  description: string | undefined;
   time: string;
 }
 
 const TaskEditionForm: React.FC<TaskEditionFormProps> = ({ task }) => {
   const { toggleModal } = useAppContext();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    reset,
+    setValue,
+    formState: { isLoading, errors },
+  } = useForm<TaskEditionFormData>({
+    defaultValues: {
+      title: task.title,
+      description: task.description,
+      time: task.time,
+    }
+  });
   const queryClient = useQueryClient();
   const EditTaskMutation = useMutation({
     mutationFn: async (data: TaskEditionFormData): Promise<void> => {
       try {
-        const response = await axios.put(
-          `http://localhost:3001/editTask/${task.taskId}`,
-          data
-        );
-        console.log(response.data)
+        const response = await api.put(`tasks/edit/${task._id}`, data);
+        setValue('title', data.title)
+        setValue('description', data.description)
+        setValue('time', data.time)
+        console.log(response.data);
       } catch (err: any) {
         setError("root", {
           type: "custom",
@@ -45,20 +59,6 @@ const TaskEditionForm: React.FC<TaskEditionFormProps> = ({ task }) => {
       }
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    setError,
-    reset,
-    formState: { isLoading, errors },
-  } = useForm<TaskEditionFormData>({
-    defaultValues: {
-      title: task.title,
-      description: task.description,
-      time: task.time,
-    },
   });
 
   function onSubmit(data: TaskEditionFormData): void {
@@ -70,7 +70,7 @@ const TaskEditionForm: React.FC<TaskEditionFormProps> = ({ task }) => {
       setError("root", { type: "custom", message: "Title cannot be empty!" });
     }
   }
-  
+
   return (
     <div>
       <Form handleSubmit={handleSubmit} onSubmit={onSubmit}>

@@ -3,14 +3,13 @@ import React from "react";
 import getDataFromLocalStorage from "../../utils/local-storage/getDataFromLocalStorage";
 import toLocalISOString from "../../utils/toLocalISOString";
 import getTimeFromDate from "../../utils/getTimefFromDate";
+import api from "../../utils/api";
 //context
 import { useAppContext } from "../../context/AppContextProvider";
 //types
 import { UserData } from "../../types/UserData";
 //tanstack query
 import { useQueryClient, useMutation } from "@tanstack/react-query";
-//axios
-import axios from "axios";
 //react hook form
 import { useForm } from "react-hook-form";
 //components
@@ -52,11 +51,13 @@ const AddTaskForm: React.FC = () => {
   const AddTaskmutation = useMutation({
     mutationFn: async (data: TaskCreationFormData) => {
       try {
-        const response = await axios.post("http://localhost:3001/createTask", {
+        const date = new Date(data.date)
+        date.setHours(0,0,0,0)
+        console.log(date)
+        const response = await api.post("tasks/create", {
           ...data,
-          userId: userData.userId,
-          taskId: createTaskId(),
-          date: new Date(data.date).toString(),
+          userId: userData._id,
+          date: date.toString(),
         });
         console.log(response);
       } catch (err: any) {
@@ -68,12 +69,6 @@ const AddTaskForm: React.FC = () => {
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
-
-  function createTaskId(): string {
-    return (
-      "task" + Date.now().toString(36) + Math.random().toString(36).substr(2)
-    );
-  }
 
   function onSubmit(data: TaskCreationFormData): void {
     if (data.title) {
