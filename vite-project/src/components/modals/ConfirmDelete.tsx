@@ -5,6 +5,8 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppContext } from "../../context/AppContextProvider";
 //utils
 import api from "../../utils/api";
+//toastify
+import { toast } from "react-toastify";
 
 interface ConfirmDeleteProps {
   taskId: string;
@@ -20,8 +22,9 @@ const ConfirmDelete: React.FC<ConfirmDeleteProps> = ({ taskId }) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 
-  function handleDelete(): void {
-    deleteMutation.mutateAsync();
+  async function handleDelete(): Promise<void> {
+    await deleteMutation.mutateAsync();
+    toast.success('Task successfuly deleted!')
     toggleModal();
   }
   return (

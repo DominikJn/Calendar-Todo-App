@@ -17,7 +17,8 @@ import Form from "../forms/Form";
 import Input from "../forms/Input";
 import TextArea from "../forms/TextArea";
 import SubmitInput from "../forms/SubmitInput";
-import ErrorMessage from "../ErrorMessage";
+//toastify
+import { toast } from "react-toastify";
 
 interface TaskCreationFormData {
   title: string;
@@ -53,7 +54,6 @@ const AddTaskForm: React.FC = () => {
       try {
         const date = new Date(data.date)
         date.setHours(0,0,0,0)
-        console.log(date)
         const response = await api.post("tasks/create", {
           ...data,
           userId: userData._id,
@@ -70,16 +70,15 @@ const AddTaskForm: React.FC = () => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 
-  function onSubmit(data: TaskCreationFormData): void {
+  async function onSubmit(data: TaskCreationFormData): Promise<void> {
     if (data.title) {
-      AddTaskmutation.mutateAsync(data);
+      await AddTaskmutation.mutateAsync(data);
+      toast.success('Task successfuly added!')
       toggleModal();
       reset();
     } else {
-      setError("root", {
-        type: "custom",
-        message: "Must write a title at least!",
-      });
+      const errorMessage: string = errors.root?.message || 'Write a title at least!'
+      toast.error(errorMessage, { position: "top-center" })
     }
   }
 
@@ -90,7 +89,6 @@ const AddTaskForm: React.FC = () => {
           type="text"
           label="title"
           register={register}
-          required
           placeholder="Title..."
         />
         <TextArea
@@ -101,7 +99,6 @@ const AddTaskForm: React.FC = () => {
         <Input type="date" label="date" register={register} />
         <Input type="time" label="time" register={register} required />
         <SubmitInput isLoading={isLoading} value="Create Task" />
-        <ErrorMessage errors={errors} />
       </Form>
     </div>
   );

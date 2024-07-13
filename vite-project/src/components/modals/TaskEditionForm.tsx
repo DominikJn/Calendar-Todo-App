@@ -15,6 +15,8 @@ import { useAppContext } from "../../context/AppContextProvider";
 import api from "../../utils/api";
 //types 
 import { Task } from "../../types/Task";
+//toastify
+import { toast } from "react-toastify";
 
 interface TaskEditionFormProps {
   task: Task;
@@ -50,7 +52,6 @@ const TaskEditionForm: React.FC<TaskEditionFormProps> = ({ task }) => {
         setValue('title', data.title)
         setValue('description', data.description)
         setValue('time', data.time)
-        console.log(response.data);
       } catch (err: any) {
         setError("root", {
           type: "custom",
@@ -61,9 +62,10 @@ const TaskEditionForm: React.FC<TaskEditionFormProps> = ({ task }) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["tasks"] }),
   });
 
-  function onSubmit(data: TaskEditionFormData): void {
+  async function onSubmit(data: TaskEditionFormData): Promise<void> {
     if (data.title) {
-      EditTaskMutation.mutateAsync(data);
+      await EditTaskMutation.mutateAsync(data);
+      toast.success('Task successfult edited!')
       toggleModal();
       reset();
     } else {
