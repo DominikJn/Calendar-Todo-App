@@ -16,7 +16,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen w-full transition-all">
       <Header />
-      {children}
+      <main className="w-full flex justify-center">
+        {children}
+      </main>
       <Modal />
       <ToastContainer
         position="bottom-right"
