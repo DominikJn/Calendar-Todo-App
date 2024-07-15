@@ -7,7 +7,7 @@ import BurgerLine from './BurgerLine'
 
 interface BurgerProps {
     isNavbarOpen: boolean,
-    setNavbarOpen: (arg: boolean) => void,
+    toggleNavbar: () => void,
 }
 
 type BurgerStyle = {
@@ -30,7 +30,7 @@ const burgerDisabled: BurgerStyle = {
     bottomLineRotate: 'none',
 }
 
-const Burger: React.FC<BurgerProps> = ({ isNavbarOpen, setNavbarOpen }) => {
+const Burger: React.FC<BurgerProps> = ({ isNavbarOpen, toggleNavbar }) => {
     const [burgerStyling, setBurgerStyling] = useState<BurgerStyle>(burgerDisabled)
 
     useEffect(() => {
@@ -41,7 +41,7 @@ const Burger: React.FC<BurgerProps> = ({ isNavbarOpen, setNavbarOpen }) => {
 
     return (
         <button
-            onClick={()=>setNavbarOpen(!isNavbarOpen)}
+            onClick={toggleNavbar}
             className='h-[24px] w-[32px] border-none ml-[10px] cursor-pointer relative'
         >
             <BurgerLine
